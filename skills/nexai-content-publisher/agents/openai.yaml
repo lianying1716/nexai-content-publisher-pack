@@ -1,0 +1,7 @@
+interface:
+  display_name: "NexAI Content Publisher"
+  short_description: "Draft and publish NexAI articles safely"
+  default_prompt: "Use $nexai-content-publisher to draft, validate, and publish a NexAI article through the content gateway."
+
+policy:
+  allow_implicit_invocation: true

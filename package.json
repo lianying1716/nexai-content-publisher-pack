@@ -1,0 +1,9 @@
+{
+  "name": "nexai-content-publisher-pack",
+  "private": true,
+  "description": "Portable Codex/Claude/OpenClaw wrapper for NexAI content publishing.",
+  "scripts": {
+    "content:gateway": "node ./scripts/content-gateway-cli.js",
+    "install:codex-skill": "node ./scripts/install-codex-skill.js"
+  }
+}
