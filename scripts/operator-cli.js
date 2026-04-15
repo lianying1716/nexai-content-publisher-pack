@@ -67,9 +67,29 @@ async function requestJson(method, pathname, options = {}) {
     method
   });
   const text = await response.text();
-  const payload = text ? JSON.parse(text) : {};
+  let payload = {};
+  try {
+    payload = text ? JSON.parse(text) : {};
+  } catch (error) {
+    payload = {};
+  }
   if (!response.ok) {
-    const error = new Error(payload?.error || payload?.message || `HTTP ${response.status}`);
+    let message = payload?.error || payload?.message || `HTTP ${response.status}`;
+    if (response.status === 404) {
+      const siteOrigin = baseUrl.replace(/\/api\/operator\/?$/, "");
+      const legacyProbe = await fetch(`${siteOrigin}/api/open-api/content/context`, {
+        headers: {
+          Accept: "application/json"
+        },
+        method: "GET"
+      }).catch(() => null);
+      if (legacyProbe && legacyProbe.status === 401) {
+        message = "目标站点存在旧 content gateway，但未部署 operator gateway。请先把带 /api/operator/* 路由的新服务版本部署到目标环境。";
+      } else {
+        message = "目标站点未找到 operator gateway。请确认 NEXAI_OPERATOR_BASE_URL 指向正确环境，且目标服务已部署 /api/operator/* 路由。";
+      }
+    }
+    const error = new Error(message);
     error.payload = payload;
     error.statusCode = response.status;
     throw error;

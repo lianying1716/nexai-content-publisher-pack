@@ -50,6 +50,19 @@ For LAN testing:
 NEXAI_OPERATOR_BASE_URL=http://192.168.2.7:3091
 ```
 
+## Backend Requirement
+
+The target environment must already expose the operator gateway:
+
+- `/api/operator/content/*`
+- `/api/operator/products/*`
+- `/api/operator/inventory/*`
+- `/api/operator/reviews/*`
+- `/api/operator/alerts/*`
+- `/api/operator/payments/summary`
+
+If the site only exposes the older `/api/open-api/content/*` routes, this pack will install correctly but the operator workflow will not run.
+
 ## Common Commands
 
 ```bash
@@ -79,3 +92,15 @@ node ./scripts/operator-cli.js content:validate --file ./examples/sample-operato
 ```bash
 node ./scripts/operator-cli.js inventory:preview --file ./examples/sample-inventory-preview.json
 ```
+
+## Troubleshooting
+
+- If `doctor` or any operator command returns a message saying the target site has the old content gateway but no operator gateway:
+  - your pack install is fine
+  - your token may also be fine
+  - the real issue is that the target server has not deployed the new backend with `/api/operator/*`
+- On 2026-04-15, both:
+  - `https://xsai5.xyz/api/operator/*`
+  - `http://192.168.2.7:3091/api/operator/*`
+  returned `404 Not found`
+  while `/api/open-api/content/context` on the LAN host still returned `401`, which confirms the old content gateway exists there but the operator gateway does not.
