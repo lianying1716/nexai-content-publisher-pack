@@ -52,14 +52,14 @@ async function removeTargetIfSafe(targetPath, sourcePath) {
 async function main() {
   const args = parseArgs(process.argv.slice(2));
   const repoRoot = path.resolve(__dirname, "..");
-  const sourcePath = path.join(repoRoot, "skills", "nexai-content-publisher");
+  const sourcePath = path.join(repoRoot, "skills", "nexai-site-operator");
   const codexHome = args.codexHome
     ? path.resolve(args.codexHome)
     : process.env.CODEX_HOME
       ? path.resolve(process.env.CODEX_HOME)
       : path.join(os.homedir(), ".codex");
   const skillsDir = path.join(codexHome, "skills");
-  const targetPath = path.join(skillsDir, "nexai-content-publisher");
+  const targetPath = path.join(skillsDir, "nexai-site-operator");
 
   await fs.mkdir(skillsDir, { recursive: true });
   await removeTargetIfSafe(targetPath, sourcePath);

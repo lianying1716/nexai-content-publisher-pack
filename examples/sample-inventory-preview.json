@@ -1,0 +1,15 @@
+{
+  "productId": "replace-with-product-id",
+  "secrets": [
+    "sample-secret-001",
+    "sample-secret-002"
+  ],
+  "agentMetadata": {
+    "provider": "openai",
+    "toolName": "operator-cli",
+    "modelName": "gpt-5.4",
+    "operator": "codex",
+    "promptVersion": "operator-skill-v1",
+    "workspace": "/path/to/repo"
+  }
+}

@@ -1,9 +1,9 @@
 {
-  "name": "nexai-content-publisher-pack",
+  "name": "nexai-site-operator-pack",
   "private": true,
-  "description": "Portable Codex/Claude/OpenClaw wrapper for NexAI content publishing.",
+  "description": "Portable Codex/Claude/OpenClaw wrapper for NexAI operator gateway usage.",
   "scripts": {
-    "content:gateway": "node ./scripts/content-gateway-cli.js",
-    "install:codex-skill": "node ./scripts/install-codex-skill.js"
+    "install:codex-skill": "node ./scripts/install-codex-skill.js",
+    "operator:cli": "node ./scripts/operator-cli.js"
   }
 }

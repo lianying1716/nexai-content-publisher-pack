@@ -1,0 +1,49 @@
+{
+  "type": "compare",
+  "title": "Operator Content Smoke Article",
+  "slug": "operator-content-smoke-article",
+  "editorLead": "Short operator smoke article used to validate the operator gateway content workflow.",
+  "excerpt": "Validates context, validate, draft create, draft update, and publish through the operator gateway.",
+  "seoTitle": "Operator Content Smoke Article",
+  "seoDescription": "Smoke article for validating NexAI operator content flow.",
+  "categorySlugs": ["gpt"],
+  "featuredMediaId": "replace-after-upload",
+  "primaryProductId": "replace-with-context-product-id",
+  "reviewNotes": "operator smoke",
+  "sourceBundle": {
+    "references": [
+      {
+        "type": "internal",
+        "label": "operator smoke"
+      }
+    ]
+  },
+  "claimLedger": {
+    "claims": [
+      {
+        "claim": "This packet is for smoke verification only.",
+        "evidence": ["internal:operator-smoke"]
+      }
+    ]
+  },
+  "agentMetadata": {
+    "provider": "openai",
+    "toolName": "operator-cli",
+    "modelName": "gpt-5.4",
+    "operator": "codex",
+    "promptVersion": "operator-skill-v1",
+    "workspace": "/path/to/repo"
+  },
+  "editorDocument": {
+    "schema": "nexai-single-column-v1",
+    "version": 1,
+    "blocks": [
+      {
+        "id": "p1",
+        "type": "paragraph",
+        "html": "This article was prepared through the operator gateway."
+      }
+    ]
+  },
+  "contentHtml": "<p>This article was prepared through the operator gateway.</p>"
+}

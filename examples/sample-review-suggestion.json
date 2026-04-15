@@ -1,0 +1,14 @@
+{
+  "applicationId": "replace-with-application-id",
+  "suggestion": "APPROVE",
+  "reason": "Summarize the operational reason for your recommendation.",
+  "confidence": 78,
+  "agentMetadata": {
+    "provider": "openai",
+    "toolName": "operator-cli",
+    "modelName": "gpt-5.4",
+    "operator": "codex",
+    "promptVersion": "operator-skill-v1",
+    "workspace": "/path/to/repo"
+  }
+}

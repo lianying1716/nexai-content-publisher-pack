@@ -1,0 +1,14 @@
+{
+  // Merge this into your OpenClaw tool or prompt config.
+  "name": "nexai-site-operator",
+  "description": "Operate NexAI through the operator gateway and official operator CLI.",
+  "env": {
+    "NEXAI_OPERATOR_BASE_URL": "https://xsai5.xyz",
+    "NEXAI_OPERATOR_TOKEN": "replace-with-real-token"
+  },
+  "entryPrompt": "./wrappers/openclaw/OPENCLAW_PROMPT.md",
+  "runner": {
+    "command": "node",
+    "args": ["./scripts/operator-cli.js"]
+  }
+}

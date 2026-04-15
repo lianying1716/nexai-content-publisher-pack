@@ -6,7 +6,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $RootDir = Resolve-Path (Join-Path $PSScriptRoot "..")
-$Source = Join-Path $RootDir "skills\nexai-content-publisher"
+$Source = Join-Path $RootDir "skills\nexai-site-operator"
 if ([string]::IsNullOrWhiteSpace($CodexHome)) {
   if ($env:CODEX_HOME) {
     $CodexHome = $env:CODEX_HOME
@@ -16,7 +16,7 @@ if ([string]::IsNullOrWhiteSpace($CodexHome)) {
 }
 
 $SkillsDir = Join-Path $CodexHome "skills"
-$Target = Join-Path $SkillsDir "nexai-content-publisher"
+$Target = Join-Path $SkillsDir "nexai-site-operator"
 
 New-Item -ItemType Directory -Force -Path $SkillsDir | Out-Null
 
@@ -30,10 +30,10 @@ if (Test-Path $Target) {
 }
 
 if ($Copy) {
-  Copy-Item $Source $Target -Recurse -Force
+  Copy-Item -Path $Source -Destination $Target -Recurse
   Write-Output "Installed by copy: $Target"
   exit 0
 }
 
 New-Item -ItemType Junction -Path $Target -Target $Source | Out-Null
-Write-Output "Installed by junction: $Target"
+Write-Output "Installed by symlink: $Target"
