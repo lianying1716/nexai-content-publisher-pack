@@ -32,7 +32,7 @@ function getRequiredEnv(name, fallbackNames = []) {
       return value;
     }
   }
-  throw new Error(`缺少环境变量 ${name}`);
+  throw new Error(`Missing required environment variable: ${name}`);
 }
 
 function resolveGatewayBase() {
@@ -74,20 +74,10 @@ async function requestJson(method, pathname, options = {}) {
     payload = {};
   }
   if (!response.ok) {
-    let message = payload?.error || payload?.message || `HTTP ${response.status}`;
-    if (response.status === 404) {
-      const siteOrigin = baseUrl.replace(/\/api\/operator\/?$/, "");
-      const legacyProbe = await fetch(`${siteOrigin}/api/open-api/content/context`, {
-        headers: {
-          Accept: "application/json"
-        },
-        method: "GET"
-      }).catch(() => null);
-      if (legacyProbe && legacyProbe.status === 401) {
-        message = "目标站点存在旧 content gateway，但未部署 operator gateway。请先把带 /api/operator/* 路由的新服务版本部署到目标环境。";
-      } else {
-        message = "目标站点未找到 operator gateway。请确认 NEXAI_OPERATOR_BASE_URL 指向正确环境，且目标服务已部署 /api/operator/* 路由。";
-      }
+    const rawMessage = String(payload?.error || payload?.message || "").trim();
+    let message = rawMessage || `HTTP ${response.status}`;
+    if (response.status === 404 && (!rawMessage || /^not found$/i.test(rawMessage))) {
+      message = `Operator gateway route was not found for ${pathname}. Check that NEXAI_OPERATOR_BASE_URL points to the correct environment and that /api/operator/* is deployed there.`;
     }
     const error = new Error(message);
     error.payload = payload;
@@ -114,7 +104,7 @@ async function run() {
   const args = parseArgs(process.argv.slice(2));
   const command = String(args._[0] || "").trim();
   if (!command) {
-    throw new Error("缺少命令。示例：content:context / content:publish / products:list / inventory:preview / alerts:inbox");
+    throw new Error("Missing command. Examples: content:context / content:publish / products:list / inventory:preview / alerts:inbox");
   }
 
   let payload;
@@ -127,13 +117,13 @@ async function run() {
       break;
     case "content:draft:get":
       if (!args.id) {
-        throw new Error("content:draft:get 需要 --id");
+        throw new Error("content:draft:get requires --id");
       }
       payload = await requestJson("GET", `/content/drafts/detail?id=${encodeURIComponent(String(args.id))}`);
       break;
     case "content:media:upload": {
       if (!args.file) {
-        throw new Error("content:media:upload 需要 --file");
+        throw new Error("content:media:upload requires --file");
       }
       const filePath = path.resolve(process.cwd(), String(args.file));
       const buffer = await fs.readFile(filePath);
@@ -182,7 +172,7 @@ async function run() {
       break;
     case "products:detail":
       if (!args.id) {
-        throw new Error("products:detail 需要 --id");
+        throw new Error("products:detail requires --id");
       }
       payload = await requestJson("GET", `/products/detail?id=${encodeURIComponent(String(args.id))}`);
       break;
@@ -201,7 +191,7 @@ async function run() {
       break;
     case "inventory:product":
       if (!args.id) {
-        throw new Error("inventory:product 需要 --id");
+        throw new Error("inventory:product requires --id");
       }
       payload = await requestJson("GET", `/inventory/product-summary?productId=${encodeURIComponent(String(args.id))}`);
       break;
@@ -245,14 +235,14 @@ async function run() {
       payload = await requestJson("GET", "/payments/summary");
       break;
     default:
-      throw new Error(`未知命令：${command}`);
+      throw new Error(`Unknown command: ${command}`);
   }
 
   process.stdout.write(`${JSON.stringify(payload, null, 2)}\n`);
 }
 
 run().catch((error) => {
-  process.stderr.write(`${error.message || "执行失败"}\n`);
+  process.stderr.write(`${error.message || "Command failed"}\n`);
   if (error.payload) {
     process.stderr.write(`${JSON.stringify(error.payload, null, 2)}\n`);
   }

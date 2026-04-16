@@ -1,15 +1,15 @@
 {
-  "productId": "replace-with-product-id",
+  "productId": "cursor-pro-month",
   "secrets": [
-    "sample-secret-001",
-    "sample-secret-002"
+    "READY-RUN-SAMPLE-001",
+    "READY-RUN-SAMPLE-002"
   ],
   "agentMetadata": {
     "provider": "openai",
     "toolName": "operator-cli",
     "modelName": "gpt-5.4",
     "operator": "codex",
-    "promptVersion": "operator-skill-v1",
-    "workspace": "/path/to/repo"
+    "promptVersion": "operator-sample-v1",
+    "workspace": "/workspace/nexai-site-operator-pack"
   }
 }

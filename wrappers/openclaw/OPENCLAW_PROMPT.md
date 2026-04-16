@@ -19,5 +19,5 @@ This wrapper uses the bundled NexAI site-operator skill as the canonical playboo
 ## Transport
 
 - Prefer `https://xsai5.xyz` for remote or production execution
-- Prefer `http://192.168.2.7:3091` only for LAN testing
+- Prefer `http://192.168.2.7:3080` only for LAN testing
 - Do not probe the site root, `/health`, `/docs`, or `/openapi.json` to judge gateway availability

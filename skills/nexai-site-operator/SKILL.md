@@ -28,7 +28,7 @@ Use this skill whenever an external AI agent needs to operate NexAI without open
 
 ## Environment Choice
 
-- For local or LAN verification, use `http://192.168.2.7:3091`
+- For local or LAN verification, use `http://192.168.2.7:3080`
 - For production or remote execution, use `https://xsai5.xyz`
 - `NEXAI_OPERATOR_BASE_URL` may point to the site origin or directly to `/api/operator`; the official CLI normalizes both
 - Do not use admin-login flows as the external AI execution path
