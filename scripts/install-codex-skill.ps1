@@ -6,7 +6,7 @@ param(
 $ErrorActionPreference = "Stop"
 
 $RootDir = Resolve-Path (Join-Path $PSScriptRoot "..")
-$Source = Join-Path $RootDir "skills\nexai-site-operator"
+$Source = Join-Path $RootDir "skills\xsai-skill"
 if ([string]::IsNullOrWhiteSpace($CodexHome)) {
   if ($env:CODEX_HOME) {
     $CodexHome = $env:CODEX_HOME
@@ -16,7 +16,7 @@ if ([string]::IsNullOrWhiteSpace($CodexHome)) {
 }
 
 $SkillsDir = Join-Path $CodexHome "skills"
-$Target = Join-Path $SkillsDir "nexai-site-operator"
+$Target = Join-Path $SkillsDir "xsai-skill"
 
 New-Item -ItemType Directory -Force -Path $SkillsDir | Out-Null
 

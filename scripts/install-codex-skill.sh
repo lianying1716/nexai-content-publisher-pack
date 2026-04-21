@@ -4,8 +4,8 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "$0")/.." && pwd)"
 CODEX_HOME_DIR="${CODEX_HOME:-$HOME/.codex}"
 SKILLS_DIR="$CODEX_HOME_DIR/skills"
-TARGET="$SKILLS_DIR/nexai-site-operator"
-SOURCE="$ROOT_DIR/skills/nexai-site-operator"
+TARGET="$SKILLS_DIR/xsai-skill"
+SOURCE="$ROOT_DIR/skills/xsai-skill"
 
 mkdir -p "$SKILLS_DIR"
 

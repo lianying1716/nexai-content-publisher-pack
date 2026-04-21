@@ -2,10 +2,10 @@
 
 Use the bundled skill as the source of truth:
 
-- `skills/nexai-site-operator/SKILL.md`
-- `skills/nexai-site-operator/references/domains.md`
-- `skills/nexai-site-operator/references/human-confirmation.md`
-- `skills/nexai-site-operator/references/environments.md`
+- `skills/xsai-skill/SKILL.md`
+- `skills/xsai-skill/references/domains.md`
+- `skills/xsai-skill/references/human-confirmation.md`
+- `skills/xsai-skill/references/environments.md`
 
 ## Required Behavior
 
@@ -14,7 +14,9 @@ Use the bundled skill as the source of truth:
 3. Respect human confirmation boundaries for payments and approval decisions.
 4. For inventory work, always use preview before commit.
 5. For review work, create suggestions only.
-6. For content work, build a structured packet first and validate before create, update, or publish.
+6. For content work, run `content:context` first and fill `categorySlugs`, `featuredMediaId`, and `primaryProductId` from `categories[]`, `media[]`, and `products[]`.
+7. If no suitable cover exists yet, upload it first with `content:media:upload`.
+8. Build a structured packet first and validate before create, update, or publish.
 
 ## Preferred Execution
 

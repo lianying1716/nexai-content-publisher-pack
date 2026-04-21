@@ -43,7 +43,7 @@
 - `content:media:upload --file <image>`
 - `content:draft:create --file <packet.json> --idempotency-key <key>`
 - `content:draft:update --file <packet.json> --idempotency-key <key>`
-- `content:validate --file <packet.json>`
+- `content:validate --file <packet.json> [--draft-mode]`
 - `content:publish --file <packet.json> --idempotency-key <key>`
 - `products:list`
 - `products:detail --id <productId>`

@@ -1,9 +1,10 @@
 {
-  "name": "nexai-site-operator-pack",
+  "name": "xsai-skill-pack",
   "private": true,
-  "description": "Portable Codex/Claude/OpenClaw wrapper for NexAI operator gateway usage.",
+  "description": "Portable Codex/Claude/OpenClaw wrapper for XSAI operator gateway usage.",
   "scripts": {
-    "install:codex-skill": "node ./scripts/install-codex-skill.js",
+    "install:xsai-skill": "node ./scripts/install-codex-skill.js",
+    "install:codex-skill": "npm run install:xsai-skill",
     "operator:cli": "node ./scripts/operator-cli.js"
   }
 }

@@ -1,58 +1,60 @@
-# NexAI Site Operator Pack
+# XSAI Skill Pack
 
-Portable pack for operating NexAI through the operator gateway.
+中文说明。English version: [README.en.md](./README.en.md)
 
-## What Is Included
+面向 Codex、Claude Code、OpenClaw 的便携式 XSAI 操作包，用于通过 operator gateway 安全执行内容发布、商品维护、库存导入预览与审核建议。
 
-- Codex skill: `skills/nexai-site-operator/`
-- Official CLI: `scripts/operator-cli.js`
-- Claude Code wrapper: `wrappers/claude-code/CLAUDE.md`
-- OpenClaw wrapper: `wrappers/openclaw/OPENCLAW_PROMPT.md`
-- OpenClaw config example: `wrappers/openclaw/openclaw.site-operator.config.example.jsonc`
-- First-run samples:
+## 包含内容
+
+- Codex 技能：`skills/xsai-skill/`
+- 官方 CLI：`scripts/operator-cli.js`
+- Claude Code 包装说明：`wrappers/claude-code/CLAUDE.md`
+- OpenClaw 包装说明：`wrappers/openclaw/OPENCLAW_PROMPT.md`
+- OpenClaw 配置示例：`wrappers/openclaw/openclaw.xsai-skill.config.example.jsonc`
+- 首次运行样例：
   - `examples/sample-operator-content-packet.json`
   - `examples/sample-inventory-preview.json`
   - `examples/sample-review-suggestion.json`
-- Codex install scripts:
+- Codex 安装脚本：
   - `scripts/install-codex-skill.js`
   - `scripts/install-codex-skill.sh`
   - `scripts/install-codex-skill.ps1`
 
-## Quick Start
+## 快速开始
 
 ### Codex
 
 ```bash
-npm run install:codex-skill
+npm run install:xsai-skill
 ```
 
-Then invoke the skill as `$nexai-site-operator`.
+安装后请使用 `$xsai-skill` 调用技能。
 
 ### Claude Code
 
-Use `wrappers/claude-code/CLAUDE.md` as the project instruction or bootstrap prompt.
+把 `wrappers/claude-code/CLAUDE.md` 作为项目指令或启动提示词。
 
 ### OpenClaw
 
-Use `wrappers/openclaw/OPENCLAW_PROMPT.md` as the wrapper prompt and merge
-`wrappers/openclaw/openclaw.site-operator.config.example.jsonc` into your OpenClaw config.
+把 `wrappers/openclaw/OPENCLAW_PROMPT.md` 作为包装提示词，并把
+`wrappers/openclaw/openclaw.xsai-skill.config.example.jsonc` 合并到你的 OpenClaw 配置里。
 
-## Required Environment
+## 环境变量
 
 ```bash
 NEXAI_OPERATOR_BASE_URL=https://xsai5.xyz
 NEXAI_OPERATOR_TOKEN=replace-with-real-token
 ```
 
-For LAN testing:
+局域网联调时：
 
 ```bash
-NEXAI_OPERATOR_BASE_URL=http://192.168.2.7:3080
+NEXAI_OPERATOR_BASE_URL=http://192.168.2.7:3091
 ```
 
-## Backend Requirement
+## 后端前提
 
-The target environment must already expose the operator gateway:
+目标环境必须已经暴露 operator gateway：
 
 - `/api/operator/content/*`
 - `/api/operator/products/*`
@@ -61,7 +63,7 @@ The target environment must already expose the operator gateway:
 - `/api/operator/alerts/*`
 - `/api/operator/payments/summary`
 
-## Common Commands
+## 常用命令
 
 ```bash
 node ./scripts/operator-cli.js doctor
@@ -71,28 +73,34 @@ node ./scripts/operator-cli.js inventory:summary
 node ./scripts/operator-cli.js payments:summary
 ```
 
-## First Run
+## 首次发布内容建议流程
 
-1. Run the connectivity check:
+1. 先检查连通性：
 
 ```bash
 node ./scripts/operator-cli.js doctor
 ```
 
-2. Validate a sample content packet:
+2. 拉取上下文，并从 `categories[]`、`media[]`、`products[]` 填充内容包：
+
+```bash
+node ./scripts/operator-cli.js content:context
+```
+
+3. 如果没有合适封面图，先上传到媒体库：
+
+```bash
+node ./scripts/operator-cli.js content:media:upload --file ./cover.png
+```
+
+4. 严格校验内容包：
 
 ```bash
 node ./scripts/operator-cli.js content:validate --file ./examples/sample-operator-content-packet.json
 ```
 
-3. Preview inventory import:
+## 故障排查
 
-```bash
-node ./scripts/operator-cli.js inventory:preview --file ./examples/sample-inventory-preview.json
-```
-
-## Troubleshooting
-
-- If `doctor` or any operator command returns `Operator gateway route was not found`:
-  - your pack install is fine
-  - the real issue is that the target server has not deployed the backend with `/api/operator/*`
+- 如果 `doctor` 或任意 operator 命令返回 `Operator gateway route was not found`：
+  - 说明 pack 本身通常没问题
+  - 真正的问题是目标服务端还没有部署 `/api/operator/*` 相关后端

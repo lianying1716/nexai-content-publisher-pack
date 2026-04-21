@@ -53,6 +53,23 @@ async function loadJsonInput(args) {
   return {};
 }
 
+function parseBooleanish(value, fallback) {
+  if (typeof value === "boolean") {
+    return value;
+  }
+  const normalized = String(value == null ? "" : value).trim().toLowerCase();
+  if (!normalized) {
+    return fallback;
+  }
+  if (["1", "true", "yes", "on"].includes(normalized)) {
+    return true;
+  }
+  if (["0", "false", "no", "off"].includes(normalized)) {
+    return false;
+  }
+  return fallback;
+}
+
 async function requestJson(method, pathname, options = {}) {
   const baseUrl = resolveGatewayBase();
   const operatorToken = getRequiredEnv("NEXAI_OPERATOR_TOKEN");
@@ -154,11 +171,18 @@ async function run() {
         }
       });
       break;
-    case "content:validate":
+    case "content:validate": {
+      const body = await loadJsonInput(args);
+      if (args["draft-mode"] === true) {
+        body.publishMode = false;
+      } else if (Object.prototype.hasOwnProperty.call(args, "publish-mode")) {
+        body.publishMode = parseBooleanish(args["publish-mode"], true);
+      }
       payload = await requestJson("POST", "/content/validate", {
-        body: await loadJsonInput(args)
+        body
       });
       break;
+    }
     case "content:publish":
       payload = await requestJson("POST", "/content/publish", {
         body: await loadJsonInput(args),

@@ -8,7 +8,7 @@
     "toolName": "operator-cli",
     "modelName": "gpt-5.4",
     "operator": "codex",
-    "promptVersion": "operator-skill-v1",
+    "promptVersion": "xsai-skill-v1",
     "workspace": "/path/to/repo"
   }
 }

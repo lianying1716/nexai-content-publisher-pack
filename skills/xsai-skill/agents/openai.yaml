@@ -1,7 +1,7 @@
 interface:
   display_name: "NexAI Site Operator"
   short_description: "Operate content, products, inventory, alerts, and reviews safely"
-  default_prompt: "Use $nexai-site-operator to operate NexAI through the operator gateway and the official operator CLI."
+  default_prompt: "Use $xsai-skill to operate XSAI through the operator gateway and the official operator CLI."
 
 policy:
   allow_implicit_invocation: true

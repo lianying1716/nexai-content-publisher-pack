@@ -1,11 +1,13 @@
 ---
-name: nexai-site-operator
-description: Use when operating NexAI through the operator gateway instead of the admin UI. This skill covers content publishing, product listing updates, inventory preview and commit, review suggestions, alerts inbox handling, payment summary checks, LAN testing on 192.168.2.7, and production execution through https://xsai5.xyz.
+name: xsai-skill
+description: Use when operating XSAI through the operator gateway instead of the admin UI. This skill covers content publishing, product listing updates, inventory preview and commit, review suggestions, alerts inbox handling, payment summary checks, LAN testing on 192.168.2.7, and production execution through https://xsai5.xyz.
 ---
 
-# NexAI Site Operator
+# XSAI Skill
 
-Use this skill whenever an external AI agent needs to operate NexAI without opening the admin panel.
+English source of truth. 中文版见 [SKILL.zh-CN.md](SKILL.zh-CN.md).
+
+Use this skill whenever an external AI agent needs to operate XSAI without opening the admin panel.
 
 ## What This Skill Owns
 
@@ -28,7 +30,7 @@ Use this skill whenever an external AI agent needs to operate NexAI without open
 
 ## Environment Choice
 
-- For local or LAN verification, use `http://192.168.2.7:3080`
+- For local or LAN verification, use `http://192.168.2.7:3091`
 - For production or remote execution, use `https://xsai5.xyz`
 - `NEXAI_OPERATOR_BASE_URL` may point to the site origin or directly to `/api/operator`; the official CLI normalizes both
 - Do not use admin-login flows as the external AI execution path
@@ -41,10 +43,11 @@ Read [references/environments.md](references/environments.md) before choosing th
 2. Read [references/human-confirmation.md](references/human-confirmation.md) before any action that could affect stock, payments, or approvals.
 3. Pull only the minimum context needed for the chosen domain.
 4. Use `operator-cli` commands instead of ad hoc HTTP clients.
-5. For content work, use [references/content-packet-template.json](references/content-packet-template.json) as the structured starter packet.
-6. For inventory import, use [references/inventory-preview-template.json](references/inventory-preview-template.json) and preserve the `preview -> commit` split.
-7. For review work, use [references/review-suggestion-template.json](references/review-suggestion-template.json) and create suggestions only.
-8. Respect human confirmation boundaries. The AI can suggest, preview, or ack, but final confirmation stays in the admin inbox where required.
+5. For content work, before writing any packet fields, run `content:context` and choose `categorySlugs` from `categories[]`, `featuredMediaId` from `media[]`, plus `primaryProductId` from `products[]`. If no suitable media exists, upload one first with `content:media:upload`. Never reuse example values from the pack.
+6. For content work, use [references/content-packet-template.json](references/content-packet-template.json) as the structured starter packet.
+7. For inventory import, use [references/inventory-preview-template.json](references/inventory-preview-template.json) and preserve the `preview -> commit` split.
+8. For review work, use [references/review-suggestion-template.json](references/review-suggestion-template.json) and create suggestions only.
+9. Respect human confirmation boundaries. The AI can suggest, preview, or ack, but final confirmation stays in the admin inbox where required.
 
 ## References
 

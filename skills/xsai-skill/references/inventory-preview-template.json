@@ -9,7 +9,7 @@
     "toolName": "operator-cli",
     "modelName": "gpt-5.4",
     "operator": "codex",
-    "promptVersion": "operator-sample-v1",
-    "workspace": "/workspace/nexai-site-operator-pack"
+    "promptVersion": "xsai-skill-sample-v1",
+    "workspace": "/workspace/xsai-skill-pack"
   }
 }
